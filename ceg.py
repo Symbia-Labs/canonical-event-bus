@@ -109,7 +109,7 @@ def health():
     return {"ok": True}
 
 
-@APP.get("/seb/status")
+@APP.get("/ceg/status")
 def status():
     _ensure_dirs()
     state = _load_state()
@@ -126,7 +126,7 @@ def status():
     }
 
 
-@APP.post("/seb/events")
+@APP.post("/ceg/events")
 def append_event(event: EventIn):
     _ensure_dirs()
     with LOCK:
@@ -150,7 +150,7 @@ def append_event(event: EventIn):
     return {"envelope": env, "state": new_state, "projection": proj.get("recency", {}).get(event.key)}
 
 
-@APP.post("/seb/projections/rebuild")
+@APP.post("/ceg/projections/rebuild")
 def rebuild_projection():
     _ensure_dirs()
     with LOCK:
@@ -160,7 +160,7 @@ def rebuild_projection():
     return {"projection": proj, "duration_ms": dur}
 
 
-@APP.get("/seb/audit")
+@APP.get("/ceg/audit")
 def audit():
     _ensure_dirs()
     if not LOG_PATH.exists():
@@ -186,7 +186,7 @@ def audit():
     return {"ok": mismatch is None, "entries": entries, "last_hash": prev_hash, "mismatch": mismatch}
 
 
-@APP.post("/seb/decide")
+@APP.post("/ceg/decide")
 def decide(req: DecideIn):
     _ensure_dirs()
     key = req.key or req.task.get("key")

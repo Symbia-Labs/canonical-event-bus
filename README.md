@@ -20,11 +20,11 @@ python ceg.py   # serves on http://127.0.0.1:8000
 ## API (minimal)
 
 - `GET /health` — liveness
-- `GET /seb/status` — seq/hash, projection freshness
-- `POST /seb/events` — append immutable envelope; body: `{"type":"allow|deny|...","key":"acct:123","body":{...}}`
-- `POST /seb/projections/rebuild` — rebuild projections from log (returns duration_ms)
-- `POST /seb/decide` — decision stub using projections only; body: `{"task":{"op":"...","key":"acct:123"}}`
-- `GET /seb/audit` — hash-chain integrity check over the log
+- `GET /ceg/status` — seq/hash, projection freshness
+- `POST /ceg/events` — append immutable envelope; body: `{"type":"allow|deny|...","key":"acct:123","body":{...}}`
+- `POST /ceg/projections/rebuild` — rebuild projections from log (returns duration_ms)
+- `POST /ceg/decide` — decision stub using projections only; body: `{"task":{"op":"...","key":"acct:123"}}`
+- `GET /ceg/audit` — hash-chain integrity check over the log
 
 ## State layout
 
@@ -34,10 +34,10 @@ Under the repo:
 - `./.ceg/projections/recency.json` — rebuildable recency/counter projection
 - `./.ceg/derived_state.json` — non-authoritative seq/hash tracker
 
-Delete `./.ceg/projections/*` and call `/seb/projections/rebuild` to prove rebuildability. The log is authoritative; projections are derived.
+Delete `./.ceg/projections/*` and call `/ceg/projections/rebuild` to prove rebuildability. The log is authoritative; projections are derived.
 
 ## Notes
 
 - No auth, no external deps beyond FastAPI/uvicorn.
-- Decisions are SEB-only (no payload fetch, no retrieval).
-- Monotonic time and hash chaining included; integrity check via `/seb/audit`.
+- Decisions are CEG-only (no payload fetch, no retrieval).
+- Monotonic time and hash chaining included; integrity check via `/ceg/audit`.
