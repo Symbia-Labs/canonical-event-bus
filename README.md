@@ -1,3 +1,5 @@
+> **This repository is archived.** It is part of Symbia v1, which is no longer maintained. Symbia v2 replaces it: [github.com/Symbia-Labs/symbia](https://github.com/Symbia-Labs/symbia)
+
 # Canonical Event Bus (CEG) — Minimal Open Source Stub
 
 Small, self-contained FastAPI app that implements the bare CEG primitives:
